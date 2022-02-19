@@ -11,9 +11,25 @@ import {
 import { MaterialIcons } from '@expo/vector-icons'
 import colors from '../../../util/colors'
 
-const Tabs = (props) => {
+const Tabs = ({ translateY }) => {
+
+    const tabOpacity = translateY.interpolate({
+        inputRange: [0, 150],
+        outputRange: [1, 0.3],
+        extrapolate: 'clamp'
+    })
+
+    const tabY = translateY.interpolate({
+        inputRange: [0, 150],
+        outputRange: [0, 50],
+        extrapolate: 'clamp'
+    })
+
     return (
-        <Container>
+        <Container style={{
+            opacity: tabOpacity,
+            transform: [{ translateY: tabY }]
+        }}>
             <TabsContainer>
                 <Tab>
                     <MaterialIcons name='person-add' size={24} color={colors.white} />
